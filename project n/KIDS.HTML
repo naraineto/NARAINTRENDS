@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NarainTrends - Kids' Collection</title>
+    <link rel="stylesheet" href="KIDS.CSS"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">NARAIN<span>TRENDS</span></a>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="MEN1.HTML">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="KIDS.HTML">Kids</a></li>
+                     <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-banner">
+        <div class="container">
+            <h1>Kids' Fun Fashion</h1>
+            <p>Adorable and comfortable styles for your little ones</p>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-badge"></div>
+                    <div class="product-img">
+                        <img src="./src/K1.webp" alt="Dinosaur Print T-Shirt">
+                    </div>
+                    <div class="product-info">
+                        <h3>Dinosaur Print T-Shirt</h3>
+                        <div class="price">₹449 <span class="old-price">₹699</span></div>
+                        <br><br> <a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge"></div>
+                    <div class="product-img">
+                        <img src="./src/K2.webp" alt="Girls' Floral Dress">
+                    </div>
+                    <div class="product-info">
+                        <h3>Girls' Floral Dress</h3>
+                        <div class="price">₹799 <span class="old-price">₹1,200</span></div>
+                        <br><br> <a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge"></div>
+                    <div class="product-img">
+                        <img src="./src/K3.webp" alt="Kids' Denim Jeans">
+                    </div>
+                    <div class="product-info">
+                        <h3>Comfort Denim Jeans</h3>
+                        <div class="price">₹899 <span class="old-price">₹1,300</span></div>
+                        <br><br> <a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./src/K4.webp" alt="Unicorn Hoodie">
+                    </div>
+                    <div class="product-info">
+                        <h3>Unicorn Print Hoodie</h3>
+                        <div class="price">₹999 <span class="old-price">₹1,500</span></div>
+                        <br> <a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge"></div>
+                    <div class="product-img">
+                        <img src="./src/K5.webp" alt="Playtime Shorts">
+                    </div>
+                    <div class="product-info">
+                        <h3>Colorful Playtime Shorts</h3>
+                        <div class="price">₹349</div>
+                        <br><br><br><a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge"></div>
+                    <div class="product-img">
+                        <img src="./src/K6.webp" alt="Kids' Puffer Jacket">
+                    </div>
+                    <div class="product-info">
+                        <h3>Warm Puffer Jacket</h3>
+                        <div class="price">₹1,899 <span class="old-price">₹2,500</span></div>
+                        <br><br><a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="./src/K7.webp" alt="Baby Romper">
+                    </div>
+                    <div class="product-info">
+                        <h3>Cute Baby Romper</h3>
+                        <div class="price">₹599</div>
+                        <br><br><a href="add.html" class="add-to-cart">Add to Cart</a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+                <p class="copyright">&copy; 2026 NarainTrends. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = [];
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+
+            function addToCart(event) {
+                const button = event.target;
+                const title = button.parentElement.querySelector('h3').innerText;
+                const price = button.parentElement.querySelector('.price').innerText;
+                const image = button.parentElement.parentElement.querySelector('img').src;
+
+                cart.push({ title, price, image });
+                alert(`${title} added to cart!`); // Simple confirmation
+            }
+        });
+    </script>
+</body>
+</html>
