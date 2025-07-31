@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Narain Trends</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Basic styles for the wishlist page - you can integrate these into your styles.css */
+        .wishlist-container {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: calc(100vh - 250px); /* Adjust based on header/footer height */
+        }
+
+        .wishlist-container h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        .wishlist-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .wishlist-item-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .wishlist-item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .wishlist-item-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .wishlist-item-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .wishlist-item-info h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .wishlist-item-info .price {
+            font-size: 1.2em;
+            color: #e67e22; /* Orange color for price */
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .wishlist-item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .wishlist-item-actions .btn {
+            flex: 1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .wishlist-item-actions .add-to-cart-btn {
+            background-color: #28a745; /* Green for Add to Cart */
+            color: white;
+            border: none;
+        }
+
+        .wishlist-item-actions .add-to-cart-btn:hover {
+            background-color: #218838;
+        }
+
+        .wishlist-item-actions .remove-btn {
+            background-color: #dc3545; /* Red for Remove */
+            color: white;
+            border: none;
+        }
+
+        .wishlist-item-actions .remove-btn:hover {
+            background-color: #c82333;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .empty-wishlist .btn {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .empty-wishlist .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1>Narain <span>Trends</span></h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-icons">
+                    <a href="login.html"><i class="fas fa-user"></i></a>
+                    <a href="wishlist.html"><i class="fas fa-heart"></i></a>
+                    <a href="add.html" class="cart-btn">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="intex4.html">Home</a></li>
+                    <li><a href="MEN1.HTML">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="KIDS.HTML">Kids</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="wishlist-container">
+        <h2>My Wishlist</h2>
+        <div class="wishlist-items" id="wishlist-items-grid">
+            <div class="wishlist-item-card">
+                <img src="./jean.webp" alt="Blue denim jeans with stylish wash and modern fit">
+                <div class="wishlist-item-info">
+                    <h3>Premium Denim Jeans</h3>
+                    <div class="price">₹2,000</div>
+                    <div class="wishlist-item-actions">
+                        <a href="add.html" class="btn add-to-cart-btn">Add to Cart</a>
+                        <button class="btn remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wishlist-item-card">
+                <img src="./shirtOIP.webp" alt="White cotton shirt with elegant detailing">
+                <div class="wishlist-item-info">
+                    <h3>Formal White Shirt</h3>
+                    <div class="price">₹999</div>
+                    <div class="wishlist-item-actions">
+                        <a href="add.html" class="btn add-to-cart-btn">Add to Cart</a>
+                        <button class="btn remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wishlist-item-card">
+                <img src="./tshirt.webp" alt="Casual t-shirt with graphic print and comfortable fit">
+                <div class="wishlist-item-info">
+                    <h3>Graphic Print T-Shirt</h3>
+                    <div class="price">₹599</div>
+                    <div class="wishlist-item-actions">
+                        <a href="add.html" class="btn add-to-cart-btn">Add to Cart</a>
+                        <button class="btn remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Narain Trends</h3>
+                    <p>Premium fashion clothing store offering the latest trends in men's, women's and kids wear. Quality products at affordable prices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="intex4.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="#">Collections</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="wishlist.html">Wishlist</a></li> <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Fashion Street, Mumbai, India</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                        <li><i class="fas fa-envelope"></i> info@naraintrends.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Narain Trends. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle (if you have a hamburger icon)
+        // document.querySelector('.hamburger').addEventListener('click', function() {
+        //     document.querySelector('.navbar').classList.toggle('active');
+        // });
+
+        // Example JavaScript for removing items (in a real scenario, this would interact with a backend)
+        document.addEventListener('DOMContentLoaded', () => {
+            const wishlistGrid = document.getElementById('wishlist-items-grid');
+
+            wishlistGrid.addEventListener('click', (event) => {
+                if (event.target.classList.contains('remove-btn')) {
+                    const itemCard = event.target.closest('.wishlist-item-card');
+                    if (itemCard) {
+                        itemCard.remove();
+                        // In a real application, you'd also remove the item from local storage or your database
+                        checkIfWishlistEmpty();
+                    }
+                }
+            });
+
+            function checkIfWishlistEmpty() {
+                if (wishlistGrid.children.length === 0) {
+                    wishlistGrid.innerHTML = `
+                        <div class="empty-wishlist">
+                            <p>Your wishlist is empty! Start adding your favorite items.</p>
+                            <a href="intex4.html" class="btn">Shop Now</a>
+                        </div>
+                    `;
+                }
+            }
+
+            // Initial check if the wishlist is empty on page load
+            checkIfWishlistEmpty();
+        });
+    </script>
+</body>
+</html>

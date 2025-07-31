@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NarainTrends - Your Shopping Cart</title>
+    <link rel="stylesheet" href="narain.css"> <!-- Link to the cart-specific CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section (Consistent with other pages) -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">NARAIN<span>TRENDS</span></a>
+                <ul>
+                       <li><a href="home.html">Home</a></li>
+                    <li><a href="MEN1.HTML">Men</a></li>
+                    <li><a href="women.html">Women</a></li>
+                    <li><a href="KIDS.HTML">Kids</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <!-- Optional: Add a cart icon here if you want it in the header -->
+                    <!-- <li><a href="cart.html" class="cart-icon-link"><i class="fas fa-shopping-cart"></i> <span id="cartCount" class="cart-count">0</span></a></li> -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <h1 class="cart-title">Your Shopping Cart</h1>
+
+            <div class="cart-content">
+                <div class="cart-items-container" id="cartItemsContainer">
+                    <!-- Cart items will be dynamically loaded here by JavaScript -->
+                    <p class="empty-cart-message" id="emptyCartMessage">Your cart is empty. Start shopping!</p>
+                </div>
+
+                <div class="cart-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-line">
+                        <span>Subtotal:</span>
+                        <span id="cartSubtotal">₹0.00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Shipping:</span>
+                        <span>₹50.00</span> <!-- Example fixed shipping -->
+                    </div>
+                    <div class="summary-line total-line">
+                        <span>Total:</span>
+                        <span id="cartTotal">₹0.00</span>
+                    </div>
+                    <button class="checkout-button">Proceed to Checkout</button>
+                    <a href="index.html" class="continue-shopping-button">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section (Consistent with other pages) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+                <p class="copyright">&copy; 2026 NarainTrends. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Cart Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItemsContainer = document.getElementById('cartItemsContainer');
+            const cartSubtotalElement = document.getElementById('cartSubtotal');
+            const cartTotalElement = document.getElementById('cartTotal');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const shippingCost = 50; // Example fixed shipping cost
+
+            // Function to load cart from localStorage
+            function loadCart() {
+                const cart = JSON.parse(localStorage.getItem('narainTrendsCart')) || [];
+                renderCart(cart);
+            }
+
+            // Function to save cart to localStorage
+            function saveCart(cart) {
+                localStorage.setItem('narainTrendsCart', JSON.stringify(cart));
+                renderCart(cart); // Re-render cart after saving
+            }
+
+            // Function to render (display) cart items
+            function renderCart(cart) {
+                cartItemsContainer.innerHTML = ''; // Clear previous items
+                let subtotal = 0;
+
+                if (cart.length === 0) {
+                    emptyCartMessage.style.display = 'block';
+                } else {
+                    emptyCartMessage.style.display = 'none';
+                    cart.forEach((item, index) => {
+                        const itemPrice = parseFloat(item.price.replace(/[₹,]/g, '').split(' ')[0]); // Clean price string
+                        const itemTotal = itemPrice * item.quantity;
+                        subtotal += itemTotal;
+
+                        const cartItemDiv = document.createElement('div');
+                        cartItemDiv.classList.add('cart-item');
+                        cartItemDiv.innerHTML = `
+                            <div class="cart-item-img">
+                                <img src="${item.image}" alt="${item.title}" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=No+Image';">
+                            </div>
+                            <div class="cart-item-details">
+                                <h3>${item.title}</h3>
+                                <p>Price: ₹${itemPrice.toFixed(2)}</p>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn decrease" data-index="${index}">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="quantity-btn increase" data-index="${index}">+</button>
+                                </div>
+                                <p class="item-total">Item Total: ₹${itemTotal.toFixed(2)}</p>
+                            </div>
+                            <button class="remove-item-btn" data-index="${index}">
+                                <i class="fas fa-trash-alt"></i> Remove
+                            </button>
+                        `;
+                        cartItemsContainer.appendChild(cartItemDiv);
+                    });
+                }
+
+                // Update summary
+                cartSubtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+                cartTotalElement.textContent = `₹${(subtotal + shippingCost).toFixed(2)}`;
+
+                // Add event listeners for quantity and remove buttons
+                addCartItemEventListeners();
+            }
+
+            // Function to add event listeners to dynamically created cart item buttons
+            function addCartItemEventListeners() {
+                document.querySelectorAll('.quantity-btn').forEach(button => {
+                    button.removeEventListener('click', handleQuantityChange); // Prevent duplicate listeners
+                    button.addEventListener('click', handleQuantityChange);
+                });
+
+                document.querySelectorAll('.remove-item-btn').forEach(button => {
+                    button.removeEventListener('click', handleRemoveItem); // Prevent duplicate listeners
+                    button.addEventListener('click', handleRemoveItem);
+                });
+            }
+
+            // Handle quantity changes
+            function handleQuantityChange(event) {
+                const index = event.target.dataset.index;
+                let cart = JSON.parse(localStorage.getItem('narainTrendsCart')) || [];
+                if (!cart[index]) return;
+
+                if (event.target.classList.contains('increase')) {
+                    cart[index].quantity++;
+                } else if (event.target.classList.contains('decrease')) {
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else {
+                        // If quantity becomes 0, remove the item
+                        cart.splice(index, 1);
+                    }
+                }
+                saveCart(cart);
+            }
+
+            // Handle item removal
+            function handleRemoveItem(event) {
+                const index = event.target.dataset.index;
+                let cart = JSON.parse(localStorage.getItem('narainTrendsCart')) || [];
+                if (confirm('Are you sure you want to remove this item from your cart?')) { // Using confirm for simplicity
+                    cart.splice(index, 1);
+                    saveCart(cart);
+                }
+            }
+
+            // Initial load of the cart when the page loads
+            loadCart();
+        });
+    </script>
+</body>
+</html>
